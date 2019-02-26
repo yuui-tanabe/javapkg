@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ubuntu/bionic
+
+    steps:
+      - run:
+          name: Install Deps
+          command: |
+            apt update
+            apt install java-package
+      - checkout
+
+      - run:
+          name: Build
+          command: ./build.sh
+
+      - run:
+          name: Deploy
+          command: curl -T *.deb -uyuui-tanabe:$BINTRAY_TOKEN https://api.bintray.com/content/yuui-tanabe/Java/oracle-jdk-bin/$(ls *.deb);deb_distribution=bionic;deb_component=main;deb_architecture=amd64
