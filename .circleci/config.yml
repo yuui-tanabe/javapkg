@@ -9,7 +9,7 @@ jobs:
           name: Install Deps
           command: |
             apt update
-            apt install java-package
+            apt install java-package || true
       - checkout
 
       - run:
